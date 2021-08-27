@@ -27,11 +27,13 @@ import com.tencent.angel.graph.utils.GraphIO
 import org.apache.spark.storage.StorageLevel
 import org.apache.spark.{SparkConf, SparkContext}
 
-object RecommendationExample {
+object MMoE {
 
   def main(args: Array[String]): Unit = {
+    System.out.println(System.getProperty("java.library.path"))
     val params = ArgsUtil.parse(args)
-    val mode = params.getOrElse("mode", "yarn-cluster")
+    // val mode = params.getOrElse("mode", "yarn-cluster")
+    val mode = "local"
     val trainPath = params.getOrElse("trainInput", "")
     val validatePath = params.getOrElse("validateInput", "")
     val predictOutputPath = params.getOrElse("predictOutputPath", "")
@@ -54,7 +56,8 @@ object RecommendationExample {
     val evals = params.getOrElse("evals", "auc")
     val level = params.getOrElse("storageLevel", "memory_only").toUpperCase()
 
-    torchModelPath = FileUtils.getPtName("./")
+    // torchModelPath = FileUtils.getPtName("./")
+    torchModelPath = "./MMoE.pt"
     println("torchModelPath is: " + torchModelPath)
 
     val recommendation = new Recommendation(torchModelPath)

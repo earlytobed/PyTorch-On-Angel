@@ -39,6 +39,8 @@ public class TorchModel implements Serializable {
 
   // load library of torch and torch_angel
   static {
+    System.loadLibrary("torch");
+    System.loadLibrary("torchscatter");
     System.loadLibrary("torch_angel");
   }
 

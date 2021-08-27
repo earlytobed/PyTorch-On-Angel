@@ -236,3 +236,7 @@ gradle-app.setting
 **/build/
 
 # End of https://www.gitignore.io/api/macos,vim,linux,windows,gradle,maven,Intellij,java
+
+.bloop/
+.metals/
+.vscode/

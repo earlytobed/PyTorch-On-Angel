@@ -26,18 +26,18 @@ import time
 import lr, fm, deepfm, deepandwide
 import dcn, attention_net
 import pnn, attention_fm, xdeepfm
+import mmoe
 
 torch.set_num_threads(1)
 
 ## load data
-
 input_path = "./data/census_148d_train.libsvm.tmp"
 X, Y = load_svmlight_file(input_path, dtype=np.float32)
 size, dim = X.shape
 
 ## train
 
-model = lr.LogisticRegression(dim)
+# model = lr.LogisticRegression(dim)
 # model = fm.FactorizationMachine(dim, 10)
 # model = deepfm.DeepFM(dim, 13, 10, [10, 5, 1])
 # model = deepandwide.DeepAndWide(dim, 13, 10, [10, 5, 1])
@@ -46,6 +46,7 @@ model = lr.LogisticRegression(dim)
 # model = pnn.PNN(dim, 13, 10, [10, 5, 1])
 # model = attention_fm.AttentionFM(dim, 13, 10, 10)
 # model = xdeepfm.xDeepFM(dim, 13, 10, [10, 5, 5], [128, 128])
+model = mmoe.MMoE(input_dim=148, n_fields=13,)
 
 optim = torch.optim.Adam(model.parameters(), 0.01)
 loss_fn = torch.nn.BCELoss()
@@ -77,6 +78,6 @@ for epoch in range(10):
         start += batch_size
         sum_loss += loss.item() * batch_size
 
-    print(sum_loss / size, '%fs' % (time.time() - time_start))
+    print(sum_loss / size, "%fs" % (time.time() - time_start))
 
 # model.save("model.pt")

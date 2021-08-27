@@ -10,3 +10,6 @@ python/__pycache__
 .idea
 output
 dist
+cpp/pytorch*
+cpp/libtorch*
+.metals/
